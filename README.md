@@ -1,4 +1,4 @@
-# git_fix
+# flutterfire_test
 
 A new Flutter project.
 

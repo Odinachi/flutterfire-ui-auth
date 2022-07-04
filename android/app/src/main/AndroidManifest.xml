@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.git_fix">
+    package="com.example.flutterfire_test">
    <application
-        android:label="git_fix"
+        android:label="flutterfire_test"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
