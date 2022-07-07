@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -20,8 +21,7 @@ class HomeScreen extends StatelessWidget {
             TextButton(
               onPressed: () async {
                 await FirebaseAuth.instance.signOut().then(
-                      (value) => Navigator.pushNamedAndRemoveUntil(
-                          context, "/", (route) => false),
+                      (value) => context.go("/"),
                     );
               },
               child: const Text('Logout'),

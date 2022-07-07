@@ -1,32 +1,30 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutterfire_ui/auth.dart';
+import 'package:go_router/go_router.dart';
 
 class AuthScreen extends StatelessWidget {
   const AuthScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: StreamBuilder<User?>(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.hasData && snapshot.data != null) {
-            WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
-              Navigator.pushNamedAndRemoveUntil(
-                  context, "home", (route) => false);
-            });
+    return SignInScreen(
+      oauthButtonVariant: OAuthButtonVariant.icon,
+      resizeToAvoidBottomInset: true,
+      providerConfigs: const [
+        EmailProviderConfiguration(),
+      ],
+      actions: [
+        AuthStateChangeAction((context, AuthState state) {
+          if (state is SignedIn) {
+            //after user is logged in we want to determine whether their email is verified or not and then move them accordingly
+            if (state.user?.emailVerified == true) {
+              context.go("/home");
+            } else {
+              context.go("/verify_email");
+            }
           }
-
-          return const SignInScreen(
-            oauthButtonVariant: OAuthButtonVariant.icon,
-            resizeToAvoidBottomInset: true,
-            providerConfigs: [
-              EmailProviderConfiguration(),
-            ],
-          );
-        },
-      ),
+        })
+      ],
     );
   }
 }
