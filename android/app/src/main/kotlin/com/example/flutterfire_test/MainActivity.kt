@@ -1,4 +1,4 @@
-package com.example.git_fix
+package com.example.flutterfire_test
 
 import io.flutter.embedding.android.FlutterActivity
 
