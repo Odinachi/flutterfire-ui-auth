@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:go_router/go_router.dart';
 
@@ -10,8 +11,11 @@ class AuthScreen extends StatelessWidget {
     return SignInScreen(
       oauthButtonVariant: OAuthButtonVariant.icon,
       resizeToAvoidBottomInset: true,
-      providerConfigs: const [
-        EmailProviderConfiguration(),
+      providerConfigs: [
+        const EmailProviderConfiguration(),
+        GoogleProviderConfiguration(
+          clientId: dotenv.get("GOOGLE_KEY", fallback: ""),
+        )
       ],
       actions: [
         AuthStateChangeAction((context, AuthState state) {
