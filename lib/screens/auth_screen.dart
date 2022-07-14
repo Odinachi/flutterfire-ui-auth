@@ -9,7 +9,7 @@ class AuthScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SignInScreen(
-      oauthButtonVariant: OAuthButtonVariant.icon,
+      oauthButtonVariant: OAuthButtonVariant.icon_and_text,
       resizeToAvoidBottomInset: true,
       providerConfigs: [
         const EmailProviderConfiguration(),

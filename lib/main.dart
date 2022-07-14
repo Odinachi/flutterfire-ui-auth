@@ -14,11 +14,11 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await dotenv.load(fileName: ".env");
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  MyApp({Key? key}) : super(key: key);
+  const MyApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -51,7 +51,7 @@ final GoRouter router = GoRouter(
   //checks for the initial page to show the user based on the user details
   initialLocation: FirebaseAuth.instance.currentUser?.email == null
       ? "/"
-      : FirebaseAuth.instance.currentUser?.emailVerified == true
+      : FirebaseAuth.instance.currentUser?.emailVerified != true
           ? "/verify_email"
           : "/home",
   routes: <GoRoute>[
