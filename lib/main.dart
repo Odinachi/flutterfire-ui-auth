@@ -51,7 +51,7 @@ final GoRouter router = GoRouter(
   //checks for the initial page to show the user based on the user details
   initialLocation: FirebaseAuth.instance.currentUser?.email == null
       ? "/"
-      : FirebaseAuth.instance.currentUser?.emailVerified != true
+      : FirebaseAuth.instance.currentUser?.emailVerified != false
           ? "/verify_email"
           : "/home",
   routes: <GoRoute>[
