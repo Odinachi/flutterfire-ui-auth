@@ -44,7 +44,12 @@ class HomeScreen extends StatelessWidget {
                     style: const TextStyle(fontSize: 20),
                   ),
                   TextButton(
-                    onPressed: () async {},
+                    onPressed: () async {
+                      // await FlutterFireUIAuth.signOut();
+                      await FirebaseAuth.instance
+                          .signOut()
+                          .then((value) => context.go("/"));
+                    },
                     child: const Text('Logout'),
                   )
                 ],

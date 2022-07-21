@@ -20,12 +20,7 @@ class AuthScreen extends StatelessWidget {
       actions: [
         AuthStateChangeAction((context, AuthState state) {
           if (state is SignedIn) {
-            //after user is logged in we want to determine whether their email is verified or not and then move them accordingly
-            if (state.user?.emailVerified == true) {
-              context.go("/home");
-            } else {
-              context.go("/verify_email");
-            }
+            context.go("/home");
           }
         })
       ],

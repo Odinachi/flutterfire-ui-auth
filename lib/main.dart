@@ -6,6 +6,7 @@ import 'package:flutterfire_test/firebase_options.dart';
 import 'package:flutterfire_test/screens/auth_screen.dart';
 import 'package:flutterfire_test/screens/home_screen.dart';
 import 'package:flutterfire_test/screens/verify_email_screen.dart';
+import 'package:flutterfire_ui/auth.dart';
 import 'package:go_router/go_router.dart';
 
 Future<void> main() async {
@@ -62,8 +63,30 @@ final GoRouter router = GoRouter(
     ),
     GoRoute(
       path: '/home',
-      builder: (BuildContext context, GoRouterState state) =>
-          const HomeScreen(),
+      builder: (BuildContext context, GoRouterState state) {
+        return AuthFlowBuilder<EmailFlowController>(
+          listener: (oldState, newState, controller) {
+            if (newState is! SignedIn) {
+              context.go('/');
+            }
+          },
+          builder: (context, state, controller, _) {
+            return SizedBox();
+          },
+          // actions: [
+          //   SignedOutAction((context) {
+          //     // perform navigation here
+          //     context.go("/");
+          //   }),
+          //   AuthStateChangeAction((context, state) {
+          //     if (state != SigningIn) {
+          //       context.go("/");
+          //     }
+          //   })
+          // ],
+          child: HomeScreen(),
+        );
+      },
     ),
     GoRoute(
       path: '/verify_email',
@@ -71,4 +94,17 @@ final GoRouter router = GoRouter(
           const VerifyEmailScreen(),
     ),
   ],
+  redirect: (state) {
+    User? user = FirebaseAuth.instance.currentUser;
+
+    final currentRoute = state.subloc;
+    if (user == null) {
+      return currentRoute == "/" ? null : "/";
+    } else if (user.emailVerified == true) {
+      return currentRoute == '/verify_email' ? null : '/verify_email';
+    } else {
+      return currentRoute == "/home" ? null : "/home";
+    }
+  },
+  debugLogDiagnostics: true,
 );
