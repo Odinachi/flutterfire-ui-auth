@@ -71,7 +71,7 @@ final GoRouter router = GoRouter(
             }
           },
           builder: (context, state, controller, _) {
-            return SizedBox();
+            return const HomeScreen();
           },
           // actions: [
           //   SignedOutAction((context) {
@@ -84,7 +84,6 @@ final GoRouter router = GoRouter(
           //     }
           //   })
           // ],
-          child: HomeScreen(),
         );
       },
     ),

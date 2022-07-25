@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfire_ui/auth.dart';
 import 'package:go_router/go_router.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -45,9 +46,7 @@ class HomeScreen extends StatelessWidget {
                   ),
                   TextButton(
                     onPressed: () async {
-                      // await FlutterFireUIAuth.signOut();
-                      await FirebaseAuth.instance
-                          .signOut()
+                      await FlutterFireUIAuth.signOut()
                           .then((value) => context.go("/"));
                     },
                     child: const Text('Logout'),
