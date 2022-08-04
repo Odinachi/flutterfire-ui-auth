@@ -73,17 +73,6 @@ final GoRouter router = GoRouter(
           builder: (context, state, controller, _) {
             return const HomeScreen();
           },
-          // actions: [
-          //   SignedOutAction((context) {
-          //     // perform navigation here
-          //     context.go("/");
-          //   }),
-          //   AuthStateChangeAction((context, state) {
-          //     if (state != SigningIn) {
-          //       context.go("/");
-          //     }
-          //   })
-          // ],
         );
       },
     ),

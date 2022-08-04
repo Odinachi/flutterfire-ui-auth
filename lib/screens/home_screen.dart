@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutterfire_test/service/firebase_service.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:go_router/go_router.dart';
 
@@ -19,11 +20,7 @@ class HomeScreen extends StatelessWidget {
               children: [
                 InkWell(
                   onTap: () async {
-                    await FirebaseAuth.instance
-                        .signOut()
-                        .then((value) async =>
-                            await FirebaseAuth.instance.currentUser?.delete())
-                        .then((value) => context.go("/"));
+                    await FirebaseService.signOut(context);
                   },
                   child: const Padding(
                     padding: EdgeInsets.all(10.0),
