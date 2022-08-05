@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutterfire_test/service/firebase_service.dart';
 import 'package:flutterfire_ui/auth.dart';
 import 'package:go_router/go_router.dart';
 
@@ -11,6 +10,14 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Future<void> handleSignOut() async {
+      await FirebaseAuth.instance
+          .signOut()
+          .then((value) async =>
+              await FirebaseAuth.instance.currentUser?.delete())
+          .then((value) => context.go("/"));
+    }
+
     return Scaffold(
       body: SafeArea(
         child: Stack(
@@ -19,15 +26,15 @@ class HomeScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 InkWell(
-                  onTap: () async {
-                    await FirebaseService.signOut(context);
-                  },
+                  onTap: handleSignOut,
                   child: const Padding(
                     padding: EdgeInsets.all(10.0),
                     child: Text(
                       "Delete Account",
                       style: TextStyle(
-                          color: Colors.red, fontWeight: FontWeight.w600),
+                        color: Colors.red,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                   ),
                 ),
@@ -39,12 +46,15 @@ class HomeScreen extends StatelessWidget {
                 children: [
                   Text(
                     user?.email ?? '',
-                    style: const TextStyle(fontSize: 20),
+                    style: const TextStyle(
+                      fontSize: 20,
+                    ),
                   ),
                   TextButton(
                     onPressed: () async {
-                      await FlutterFireUIAuth.signOut()
-                          .then((value) => context.go("/"));
+                      await FlutterFireUIAuth.signOut().then(
+                        (value) => context.go("/"),
+                      );
                     },
                     child: const Text('Logout'),
                   )
