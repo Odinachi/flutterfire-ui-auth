@@ -11,11 +11,9 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Future<void> handleSignOut() async {
-      await FirebaseAuth.instance
-          .signOut()
-          .then((value) async =>
-              await FirebaseAuth.instance.currentUser?.delete())
-          .then((value) => context.go("/"));
+      await FirebaseAuth.instance.currentUser
+          ?.delete(); // this also signs out the user
+      context.go("/");
     }
 
     return Scaffold(
