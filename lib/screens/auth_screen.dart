@@ -18,7 +18,7 @@ class AuthScreen extends StatelessWidget {
         )
       ],
       actions: [
-        AuthStateChangeAction((context, AuthState state) {
+        AuthStateChangeAction<SignedIn>((context, AuthState state) {
           if (state is SignedIn) {
             context.go("/home");
           }
